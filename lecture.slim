@@ -149,7 +149,7 @@ section.center
 
       users = [User.new("Bob", 37), User.new("Sally", 23), User.new("Andrew", 18), User.new("Bil", 48)]
 
-      users.lazy.rselect do |user|
+      users.lazy.select do |user|
         p "Selecting " + user.name
         user.age > 19
       end.map do |user|
