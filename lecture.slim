@@ -1,0 +1,113 @@
+section.center data-background="#000"
+  h2.white Questions
+
+section.center
+  p What is a scope gate?
+
+section.center
+  p What creates scope gates?
+
+section.center
+  p How can we get around them?
+
+section.center
+  p How can we create anonymous modules and classes?
+
+section.center
+  p What does Kernel#require do?
+
+section.center
+  p What does require 'foo' do?
+
+section.center
+  p Is there difference between require 'foo.rb' and require 'foo'?
+
+section.center
+  p What does require './foo' do?
+
+section.center
+  p What does require 'foo/bar' do?
+
+section.center
+  p What is the $LOAD_PATH (also known as $:)?
+
+section.center
+  p What is Kernel#require_relative?
+
+section.center
+  p What does Kernel#load do?
+
+section.center
+  p What is an Enumerator?
+
+section.center
+  p What does Enumerator#next do?
+
+section.center
+  p What does Object#to_enum do?
+
+section.center
+  p What does Object#enum_for do?
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (1..20).map { |number| number ** 2 }.first(10)
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (1..Float::INFINITY).map { |number| number ** 2 }.first(10)
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      (1..Float::INFINITY).lazy.map { |number| number ** 2 }.first(10)
+
+section
+  h2 Lazy enumerators
+  p Lazy enumerators enumerate a collection only when needed
+
+section
+  h2 Lazy enumerators
+  p Chaining them does not result in creating intermediate collections
+
+section
+  h2 Lazy enumerators
+  p They can be used over infinite collections of values
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      User = Struct.new(:name, :age)
+
+      users = [User.new("Bob", 37), User.new("Sally", 23), User.new("Andrew", 18), User.new("Bil", 48)]
+
+      users.select do |user|
+        p "Selecting " + user.name
+        user.age > 19
+      end.map do |user|
+        p "Mapping to name " + user.name
+        user.name
+      end.map do |name|
+        p "Counting letters " + name
+        name.length
+      end.to_a
+
+section.center
+  pre: code.ruby contenteditable="true"
+    '
+      User = Struct.new(:name, :age)
+
+      users = [User.new("Bob", 37), User.new("Sally", 23), User.new("Andrew", 18), User.new("Bil", 48)]
+
+      users.lazy.rselect do |user|
+        p "Selecting " + user.name
+        user.age > 19
+      end.map do |user|
+        p "Mapping to name " + user.name
+        user.name
+      end.map do |name|
+        p "Counting letters " + name
+        name.length
+      end.to_a

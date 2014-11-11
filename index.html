@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Require, Load Path and Lazy enumerators</title>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/simple.css" rel="stylesheet" />
+    <link href="css/googlecode.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section class="center" data-background="#000">
+  <h2 class="white">
+    Questions
+  </h2>
+</section>
+<section class="center">
+  <p>
+    What is a scope gate?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What creates scope gates?
+  </p>
+</section>
+<section class="center">
+  <p>
+    How can we get around them?
+  </p>
+</section>
+<section class="center">
+  <p>
+    How can we create anonymous modules and classes?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does Kernel#require do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does require 'foo' do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    Is there difference between require 'foo.rb' and require 'foo'?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does require './foo' do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does require 'foo/bar' do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What is the $LOAD_PATH (also known as $:)?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What is Kernel#require_relative?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does Kernel#load do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What is an Enumerator?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does Enumerator#next do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does Object#to_enum do?
+  </p>
+</section>
+<section class="center">
+  <p>
+    What does Object#enum_for do?
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(1..20).map { |number| number ** 2 }.first(10) </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(1..Float::INFINITY).map { |number| number ** 2 }.first(10) </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">(1..Float::INFINITY).lazy.map { |number| number ** 2 }.first(10) </code></pre>
+</section>
+<section>
+  <h2>
+    Lazy enumerators
+  </h2>
+  <p>
+    Lazy enumerators enumerate a collection only when needed
+  </p>
+</section>
+<section>
+  <h2>
+    Lazy enumerators
+  </h2>
+  <p>
+    Chaining them does not result in creating intermediate collections
+  </p>
+</section>
+<section>
+  <h2>
+    Lazy enumerators
+  </h2>
+  <p>
+    They can be used over infinite collections of values
+  </p>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">User = Struct.new(:name, :age)
+
+users = [User.new("Bob", 37), User.new("Sally", 23), User.new("Andrew", 18), User.new("Bil", 48)]
+
+users.select do |user|
+  p "Selecting " + user.name
+  user.age > 19
+end.map do |user|
+  p "Mapping to name " + user.name
+  user.name
+end.map do |name|
+  p "Counting letters " + name
+  name.length
+end.to_a </code></pre>
+</section>
+<section class="center">
+  <pre><code class="ruby" contenteditable="true">User = Struct.new(:name, :age)
+
+users = [User.new("Bob", 37), User.new("Sally", 23), User.new("Andrew", 18), User.new("Bil", 48)]
+
+users.lazy.rselect do |user|
+  p "Selecting " + user.name
+  user.age > 19
+end.map do |user|
+  p "Mapping to name " + user.name
+  user.name
+end.map do |name|
+  p "Counting letters " + name
+  name.length
+end.to_a </code></pre>
+</section>
+      </div>
+    </div>
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script type="text/javascript">
+      Reveal.initialize({
+        width:  '100%',
+        height: '100%',
+        margin: 0.05,
+        controls: false,
+        progress: false,
+        history: true,
+        center: false,
+        rollingLinks: true,
+        transition: 'none',
+        backgroundTransition: 'none',
+        dependencies: [
+          {
+            src: 'js/highlight.js',
+            async: true,
+            callback: function() {
+              hljs.configure({ languages: ['ruby'] });
+              hljs.initHighlightingOnLoad();
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
