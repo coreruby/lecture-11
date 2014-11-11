@@ -37,6 +37,50 @@ section.center
 section.center
   p What does Kernel#load do?
 
+section.center data-background="#000"
+  h2.white Ranges
+
+section
+  h2 Range
+  p Represents an interval - a set of values with a beginning and an end, where the first value should be lower than the second
+
+section
+  h2 Range literals
+  p b..e - includes the last element
+  p b...e - excludes the last element
+
+section
+  h2 Range
+  p Ranges can be constructed from any objects that can be compared with the <=> operator
+  p 0..2
+  p 'a'..'z'
+
+section.center data-background="#000"
+  h2.white Sets
+
+section
+  h2 Sets
+  p A collection of unordered values with *no* duplicates
+
+section
+  h2 Sets
+  p Set uses Hash as storage
+
+section
+  h2 Sets
+  p Equality of elements is determined according to Object#eql? and Object#hash
+
+section
+  h2 Sets
+  p Set assumes that the identity of each element does not change while it is stored
+
+section
+  h2 Sets
+  p When a string is to be stored, a frozen copy of the string is stored instead unless the original string is already frozen
+
+section.center data-background="#000"
+  h2.white Enumerators
+
 section.center
   p What is an Enumerator?
 
@@ -57,12 +101,16 @@ section.center
 section.center
   pre: code.ruby contenteditable="true"
     '
-      (1..Float::INFINITY).map { |number| number ** 2 }.first(10)
+      require 'prime'
+
+      (1..Float::INFINITY).select { |number| number.prime? }.first(10)
 
 section.center
   pre: code.ruby contenteditable="true"
     '
-      (1..Float::INFINITY).lazy.map { |number| number ** 2 }.first(10)
+      require 'prime'
+
+      (1..Float::INFINITY).lazy.select { |number| number.prime? }.first(10)
 
 section
   h2 Lazy enumerators

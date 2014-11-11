@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Require, Load Path and Lazy enumerators</title>
+    <title>Require, Load Path, Ranges, Sets and Lazy enumerators</title>
     <meta content="" name="description" />
     <meta content="" name="author" />
     <link href="css/reveal.css" rel="stylesheet" />
@@ -76,6 +76,94 @@
     What does Kernel#load do?
   </p>
 </section>
+<section class="center" data-background="#000">
+  <h2 class="white">
+    Ranges
+  </h2>
+</section>
+<section>
+  <h2>
+    Range
+  </h2>
+  <p>
+    Represents an interval - a set of values with a beginning and an end, where the first value should be lower than the second
+  </p>
+</section>
+<section>
+  <h2>
+    Range literals
+  </h2>
+  <p>
+    b..e - includes the last element
+  </p>
+  <p>
+    b...e - excludes the last element
+  </p>
+</section>
+<section>
+  <h2>
+    Range
+  </h2>
+  <p>
+    Ranges can be constructed from any objects that can be compared with the <=> operator
+  </p>
+  <p>
+    0..2
+  </p>
+  <p>
+    'a'..'z'
+  </p>
+</section>
+<section class="center" data-background="#000">
+  <h2 class="white">
+    Sets
+  </h2>
+</section>
+<section>
+  <h2>
+    Sets
+  </h2>
+  <p>
+    A collection of unordered values with *no* duplicates
+  </p>
+</section>
+<section>
+  <h2>
+    Sets
+  </h2>
+  <p>
+    Set uses Hash as storage
+  </p>
+</section>
+<section>
+  <h2>
+    Sets
+  </h2>
+  <p>
+    Equality of elements is determined according to Object#eql? and Object#hash
+  </p>
+</section>
+<section>
+  <h2>
+    Sets
+  </h2>
+  <p>
+    Set assumes that the identity of each element does not change while it is stored
+  </p>
+</section>
+<section>
+  <h2>
+    Sets
+  </h2>
+  <p>
+    When a string is to be stored, a frozen copy of the string is stored instead unless the original string is already frozen
+  </p>
+</section>
+<section class="center" data-background="#000">
+  <h2 class="white">
+    Enumerators
+  </h2>
+</section>
 <section class="center">
   <p>
     What is an Enumerator?
@@ -100,10 +188,14 @@
   <pre><code class="ruby" contenteditable="true">(1..20).map { |number| number ** 2 }.first(10) </code></pre>
 </section>
 <section class="center">
-  <pre><code class="ruby" contenteditable="true">(1..Float::INFINITY).map { |number| number ** 2 }.first(10) </code></pre>
+  <pre><code class="ruby" contenteditable="true">require 'prime'
+
+(1..Float::INFINITY).select { |number| number.prime? }.first(10) </code></pre>
 </section>
 <section class="center">
-  <pre><code class="ruby" contenteditable="true">(1..Float::INFINITY).lazy.map { |number| number ** 2 }.first(10) </code></pre>
+  <pre><code class="ruby" contenteditable="true">require 'prime'
+
+(1..Float::INFINITY).lazy.select { |number| number.prime? }.first(10) </code></pre>
 </section>
 <section>
   <h2>
